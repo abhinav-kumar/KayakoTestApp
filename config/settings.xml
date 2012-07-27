@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swiftsettings>
+	<group name="settings_basecamp" app="basecamp" ishidden="0">'
+		<setting name="bc_app_name" type="text" >
+			<defaultvalue>Ticket App</defaultvalue>
+		</setting>
+		<setting name="bc_email" type="text" >
+			<defaultvalue>testkumar@mailinator.com</defaultvalue>
+		</setting>
+
+		<setting name="bc_app_id" type="text" >
+			<defaultvalue>66781dc7555cdef548e8a5eedeb3c91268193cde</defaultvalue>
+		</setting>
+		<setting name="bc_app_secret" type="text" >
+			<defaultvalue>69d4fea39b44095a62da0f28d2346b228f9cb3cd</defaultvalue>
+		</setting>
+		<setting name="bc_app_redirect_url" type="text" >
+			<defaultvalue>http://atulatri/test/test.php</defaultvalue>
+		</setting>
+		
+		<setting name="bc_req_timeout" type="text" >
+			<defaultvalue>180</defaultvalue>
+		</setting>
+
+		<setting name="bc_base_acc_id" type="text" >
+			<defaultvalue></defaultvalue>
+		</setting>
+		<setting name="bc_auth_token" type="hidden" >
+			<defaultvalue></defaultvalue>
+		</setting>
+		<setting name="bc_refresh_token" type="hidden" >
+			<defaultvalue></defaultvalue>
+		</setting>
+
+		<setting name="bc_user_app" type="hidden" >
+			<defaultvalue>0</defaultvalue>
+		</setting>
+	</group>
+</swiftsettings>

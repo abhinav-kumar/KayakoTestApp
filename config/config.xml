@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<title>Basecamp</title>
+	<description>This App integrates our helpdesk to Basecamp</description>
+	<author>Atul Ari</author>
+	<tabs>
+		<tab type='admin' title='Basecamp' id='111' width='120' permission='false'>
+			<tabitem link="index.php?/basecamp/Manager/ManageForm">Manage</tabitem>
+		</tab>
+	</tabs>
+</config>

@@ -1,0 +1,74 @@
+<?php
+/**
+ * =======================================
+ * ###################################
+ * Basecamp App
+ *
+ * @package	Basecamp
+ * @author		Kayako Infotech Ltd.
+ * @copyright	Copyright (c) 2001-2009, Kayako Infotech Ltd.
+ * @license		http://www.kayako.com/license
+ * @link		http://www.kayako.com
+ * @filesource
+ * ###################################
+ * =======================================
+ */
+/**
+ * 'staff_ticket_generaltoolbar' hook file
+ * The hook gets called while rendering the ticket general toolbar
+ * We add the toolbar button for exporting issues to Basecamp
+ * @author Atul Atri
+ */
+
+$_SWIFT = SWIFT::GetInstance();
+$_SWIFT->Language->LoadApp('basecamp', 'basecamp');
+
+$_ticketId = $_SWIFT_TicketObject->GetTicketID();
+$_todoId = 0;
+$_basecampTodoUrl = false;
+$_todoInfo = SWIFT_TodoTicketLink::getTodoInfo($_ticketId);
+
+if($_todoInfo){
+	$_todoId = $_todoInfo['todoid'];
+	$_basecampTodoUrl = SWIFT_ConfigManager::Get("BC_BASE_URL", 'basecamp').SWIFT_ConfigManager::Get("TODO_SUB_URL", 'basecamp');
+	$_accountId = $this->Settings->Get('bc_base_acc_id');
+	$_todoProjectId = $_todoInfo['projectid'];
+	$_basecampTodoUrl = sprintf($_basecampTodoUrl, $_accountId, $_todoProjectId, $_todoId);
+}
+
+$this->UserInterface->Toolbar->AddButton($this->Language->Get('basecamp_button'),
+		SWIFT::Get('swiftpath') . '__apps/basecamp/themes/__cp/images/basecamp-icon.gif',
+		null,
+		SWIFT_UserInterfaceToolbar::LINK_JAVASCRIPT, 'basecamp');
+?>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//set lanaguage strings in javascript
+		SWIFT.Basecamp.AdminObject.set('bc_wait', "<?php echo $this->Language->Get('bc_wait');?>");
+		SWIFT.Basecamp.AdminObject.set('todo_posted_success', "<?php echo $this->Language->Get('todo_posted'); ?>");
+		SWIFT.Basecamp.AdminObject.set('basecamptodo', "<?php echo $this->Language->Get('basecamptodo');?>");
+		SWIFT.Basecamp.AdminObject.set('loadingwindow', "<?php echo $this->Language->Get('loadingwindow');?>");
+
+		SWIFT.Basecamp.AdminObject.CreateBasecampMenu(<?php echo  $_ticketId ?>, <?php echo  $_todoId ?>);
+		SWIFT.Basecamp.AdminObject.AddtodoEvents();
+	});
+</script>
+
+<?php if ($_todoId !== false) { ?>
+<ul class="swiftdropdown" id="basecamp_menu">
+	<li class="swiftdropdownitemparent">
+		<div class="swiftdropdownitem" >
+			<div class='swiftdropdownitemtext' tip="Add comment to linked todo task on basecamp">
+				<?php  echo $this->Language->Get('todo_add_comment'); ?>
+			</div>
+		</div>
+	</li>
+	<li class="swiftdropdownitemparent">
+		<div class="swiftdropdownitem" >
+			<div class='swiftdropdownitemtext basecamp_note'>
+				<a href="<?php echo $_basecampTodoUrl ?>"><?php  echo $this->Language->Get('click_here_todo_task'); ?></a>
+			</div>
+		</div>
+	</li>
+</ul>
+<?php } ?>
